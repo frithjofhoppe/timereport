@@ -1,0 +1,14 @@
+
+weekly:
+  stage: build
+  image: python:3.11
+  script:
+    - echo "Installing dependencies..."
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+    - python TimeReport.py  $CI_PROJECT_NAMESPACE $TOKEN
+    - mv TimeReport.xlsx TimeReport-$CI_JOB_STARTED_AT.xlsx
+  artifacts:
+    paths:
+      - TimeReport-$CI_JOB_STARTED_AT.xlsx
+
